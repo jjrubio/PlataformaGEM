@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <h1 id="titulo"> Historial de Incidencias POR VOTOS</h1>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-condensed">
+                <tbody>
+                    <!-- En th va los titulos de las columnas -->
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Estado de la incidencia</th>
+                        <th>Usuario que realizo el cambio</th>
+                        <th>Comentario por el administrador</th>
+                        <th>Categoria</th>
+                        <th>Votos</th>
+                    </tr>
+                    <!-- En td va el contenido -->
+                    <tr>
+                        <td>1</td>
+                        <td>12/04/2014</td>
+                        <td>Enviado</td>
+                        <td>Andrea</td>
+                        <td>Se acepta la incidencia</td>
+                        <td>Alumbrado Electrico</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>12/04/2014</td>
+                        <td>En Reparacion</td>
+                        <td>Juan</td>
+                        <td>Se la envio al departamento de servicios publicos</td>
+                        <td>Alumbrado Electrico</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>12/04/2014</td>
+                        <td>Solucionado</td>
+                        <td>Juan</td>
+                        <td>Se soluciono con exito la incidencia</td>
+                        <td>Alumbrado Electrico</td>
+                        <td>40</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
