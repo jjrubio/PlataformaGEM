@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% load static from staticfiles %}
+
+{% block title %}Mapa de incidencias{% endblock %}
+
+{% block content %}
+    <!--Panel del mapa-->
+    <div id="img-map" class="panel panel-default col-lg-12">
+        <div class="panel-heading">
+            <h3 class="panel-title">Mapa de incidencias de la ciudad de Guayaquil</h3>
+        </div>
+        <div class="panel-body">
+            <div id="map-canvas"></div>
+        </div>
+    </div>
+    <!--Panel de la incidencia-->
+    <div id="incidence" class="panel panel-default col-lg-4 hidden">
+        <div class="panel-heading">
+            <h3 class="panel-title">Descripción de la incidencia
+                <button class="close pull-right">&times;</button>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="thumbnail">
+                        <img class="img-incidence" src="" alt="imagen de incidencia">
+                        <div class="caption row">
+                            <div class="col-lg-2">
+                                <img class="icon-incidence" src="">
+                            </div>
+                            <div class="col-lg-10">
+                                <h5 class="type-incidence text-center"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+            <div class="row">
+                <p class="description-incidence text-justify"><strong>Detalle: </strong>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, eligendi, nisi, cum dolorum amet libero quasi optio sit voluptatibus aliquam.
+                </p>
+            </div>
+            <div class="row pull-right">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div id="myModalSi" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                            <button class="close" data-dismiss="modal">&times;</button>
+                                            <span><img src="{{ STATIC_URL }}img/warning.png"></span><strong> AVISO</strong>
+
+                                        </div>
+                                        <div class="modal-body">
+                                        <p>¿ Está seguro de llevar un seguimiento de este caso ?</p>
+                                    </div>
+                                <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal" class="btn btn-danger">Sí</button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-danger">No</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalNo" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                            <button class="close" data-dismiss="modal">&times;</button>
+                                            <h3>AVISO</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                        <p>¿ Está seguro de eliminar este caso ?</p>
+                                    </div>
+                                <div class="modal-footer">
+                                        <button type="button" data-dismiss="modal" class="btn btn-primary">Sí</button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-danger">No</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="ajax.html" data-target="#myModalSi" data-toggle="modal" class="btn btn-danger">Aceptar</a>
+                        <a href="ajax.html" data-target="#myModalNo" data-toggle="modal" class="btn btn-danger">Rechazar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extraScripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+        function initialize() {
+          var mapOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(-34.397, 150.644)
+        };
+
+        var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+        }
+
+        function loadScript() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
+              'callback=initialize';
+document.body.appendChild(script);
+        }
+
+        window.onload = loadScript;
+
+    </script>
+{% endblock %}
