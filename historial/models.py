@@ -2,18 +2,28 @@ from django.contrib.auth.models import User
 from django.db import models
 from incidencias.models import Incidencia
 
+
 class State(models.Model):
     tipo = models.CharField(max_length=20)
+
     def __unicode__(self):
-    	return self.tipo
+        return self.tipo
+
+    class Meta:
+        db_table = 'estado'
+
 
 class Report(models.Model):
-	fecha 			= 	models.DateTimeField(null=True, default=None)
-	incidencia 		= 	models.ForeignKey(Incidencia)
-	estado 			= 	models.ForeignKey(State, default=1)
-	comentario 		= 	models.CharField(max_length=255)
-	usuario_login 	= 	models.ForeignKey(User, related_name='usuario_login')
-	def __unicode__(self):
-		return self.comentario
+    fecha           =   models.DateTimeField(null=True, default=None)
+    incidencia      =   models.ForeignKey(Incidencia)
+    estado          =   models.ForeignKey(State, default=1)
+    comentario      =   models.CharField(max_length=255)
+    usuario_login   =   models.ForeignKey(User, related_name='usuario_login')
+
+    def __unicode__(self):
+        return self.comentario
+
+    class Meta:
+        db_table = 'reporte'
 
 

@@ -21,8 +21,8 @@ class Incidencia(models.Model):
     class Meta:
         db_table = 'incidencia'
 
-    def __unicode__(self):
-        return self.id
+    # def __unicode__(self):
+    #     return self.reportada_x_usuario
 
 
 class Incidencia_info(models.Model):
