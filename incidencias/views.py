@@ -34,3 +34,10 @@ def marcadores_sin_revisar(request):
         return HttpResponseRedirect("/")
     json = simplejson.dumps(message)
     return HttpResponse(json, mimetype='application/json')
+
+def lista (request):
+    incidencias = Incidencia.objects.all()
+    incidencias_info = Incidencia_info.objects.all()
+    incidencias_opi = Incidencia_opiniones.objects.all()
+    template = "incidencia.html"
+    return render_to_response(template, context_instance = RequestContext(request,locals()))

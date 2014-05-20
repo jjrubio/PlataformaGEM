@@ -35,3 +35,8 @@ def show_historial_votes(request):
 	reportes    = Report.objects.all()
 	template    = 'historial_votos.html'
 	return render_to_response(template, context_instance = RequestContext(request,locals()))
+
+def show_historial_id(request, incidencia_id):
+	reportes = Report.objects.filter(incidencia_id=incidencia_id)
+	template = 'historial_incidencia.html'
+	return render_to_response(template, context_instance = RequestContext(request,locals()))
