@@ -26,7 +26,7 @@ def marcadores_sin_revisar(request):
             dict_inc['inc_direccion'] = info.direccion
             dict_inc['inc_comentario'] = info.comentario
             dict_inc['inc_fecha'] = "%s" % info.fecha
-            dict_inc['inc_evidencia'] = "/%s" % info.imagen_path
+            dict_inc['inc_evidencia'] = "%s" % info.imagen_path
             dict_inc['inc_estado'] = info.incidencia.estado
             dict_inc['inc_visible'] = info.incidencia.visible
             message.append(dict_inc)

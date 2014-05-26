@@ -29,10 +29,11 @@
                         <img class="img-incidence" src="" alt="imagen de incidencia">
                         <div class="caption row">
                             <div class="col-lg-2">
-                                <img class="icon-incidence" src="">
+                                <!-- <img class="icon-incidence" src=""> -->
+                                <i class="fa fa-asterisk"></i>
                             </div>
                             <div class="col-lg-10">
-                                <h5 class="type-incidence text-center"></h5>
+                                <h5 class="type-incidence text-center">Incidencia ambiental</h5>
                             </div>
                         </div>
                     </div>
@@ -40,8 +41,8 @@
                 <div class="col-lg-2"></div>
             </div>
             <div class="row">
-                <p class="description-incidence text-justify"><strong>Detalle: </strong>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, eligendi, nisi, cum dolorum amet libero quasi optio sit voluptatibus aliquam.
+                <p class="description-incidence text-justify"><strong>Comentario: </strong>
+                    Casa en demolición
                 </p>
             </div>
             <div class="row pull-right">
@@ -82,8 +83,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="ajax.html" data-target="#myModalSi" data-toggle="modal" class="btn btn-danger">Aceptar</a>
-                        <a href="ajax.html" data-target="#myModalNo" data-toggle="modal" class="btn btn-danger">Rechazar</a>
+                        <a href="ajax.html" data-target="#myModalSi" data-toggle="modal" class="btn btn-primary">Aceptar</a>
+                        <a href="ajax.html" data-target="#myModalNo" data-toggle="modal" class="btn btn-primary">Rechazar</a>
                     </div>
                 </div>
 
@@ -116,8 +117,8 @@
                 $.each(data, function(marker) {
                     plotPoint(data[marker].inc_coordenada,
                                    data[marker].inc_categoria,//cambiar valor
-                                   data[marker].inc_categoria,
-                                   data[marker].inc_evidencia,
+                                   '<div class=\'bubbleMap\'>'+data[marker].inc_comentario+'<hr/>'+'<i class=\'fa fa-male\'></i> jaruban <span class=\'pull-right\'><b># 5</b></span></div>',
+                                   {{MEDIA_URL}}+data[marker].inc_evidencia,
                                    data[marker].inc_comentario);
 
                     console.log(data[marker].inc_usuario);
@@ -129,29 +130,30 @@
 
 
         //    Posiciona un marcador segun los datos enviados
-        function plotPoint(coord,state,popUpContent,rute,detail)
+        function plotPoint(coordenada,estado,infoMarker,imagen,comentario)
         {
 
-            var myLatlng = new google.maps.LatLng(coord.split(",")[0], coord.split(",")[1]);
+            var myLatlng = new google.maps.LatLng(coordenada.split(",")[0], coordenada.split(",")[1]);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                title: state
+                title: estado
             });
             console.log(marker);
             markersArray.push(marker);
             var infowindow = new google.maps.InfoWindow({
-                content: popUpContent
+                content: infoMarker
             });
             google.maps.event.addListener(marker, 'click', function() {
                 if(activeWindow != null){
                     activeWindow.close();
                 }
                 infowindow.open(map,marker);
+                // infowindow.attr("width",200);
                 activeWindow = infowindow;
-                // $( "#img-map").removeClass( "col-lg-12" ).addClass( "col-lg-8" );
-                // $( "#incidence").removeClass( "hidden" ).addClass( "show" );
-                // $(".img-incidence").attr("src",rute);
+                $( "#img-map").removeClass( "col-lg-12" ).addClass( "col-lg-8" );
+                $( "#incidence").removeClass( "hidden" ).addClass( "show" );
+                $(".img-incidence").attr("src",imagen);
                 // $(".icon-incidence").attr("src","../images/categoria/"+title+".png");
                 // $(".type-incidence").text(detail);
             });

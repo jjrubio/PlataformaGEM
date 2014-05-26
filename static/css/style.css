@@ -5846,3 +5846,7 @@ body .table {
   background-color: #3F3F3F;
   color: #FFF;
 }
+body .bubbleMap {
+  width: 250px;
+  font-size: 15px;
+}
