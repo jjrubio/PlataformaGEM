@@ -1,0 +1,46 @@
+{% load static from staticfiles %}
+
+{% block extraCSS %}
+    <link href="{% static "css/historial.css" %}" rel="stylesheet"  />
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        
+        <select class="form-control combo">
+            {% if categorias_all %}
+                {% for cat in categorias_all %}
+                    <option value="{{ cat.categoria.id }}">{{ cat.categoria.nombre }}</option>
+                {% endfor %}
+            {% else %}
+                <option value="1">No hay categorias a enseñar</option>
+            {% endif %}
+        </select>
+
+        {% if incidencias_rechazadas and incidencias_info_rechazadas %}
+            {% for incidencia_info in incidencias_info_rechazadas %}
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <p>Comentario de la incidencia: {{ incidencia_info.comentario }}</p>
+                    </div>
+                    <div class="panel-body">
+                        <img id="thumbnail" src="{{ STATIC_URL }}pic_incidencia/imagen.jpg" />
+                        <div id="informacion">
+                            <h4>Informacion</h4>
+                            <p>Categoria: {{ incidencia_info.incidencia.categoria }}</p>
+                            <p>Estado actual: {{ incidencia_info.incidencia.estado }}</p>
+                            <p>Usuario que reporto la incidencia: {{ incidencia_info.incidencia.reportada_x_usuario }}</p>
+                            <p>Fecha: {{ incidencia_info.fecha }}</p>
+                        </div>
+                        <div id="acciones">
+                            <h4>Acciones</h4>
+                            <p><a href="/historial_incidencia/{{ incidencia_info.incidencia.id }}">Historial</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No existen datos a mostrar</p>
+        {% endif %}
+    </div>  
+{% endblock %}

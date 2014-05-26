@@ -2,45 +2,42 @@
 
 {% load static from staticfiles %}
 
+{% block extraCSS %}
+    <link href="{% static "css/historial.css" %}" rel="stylesheet"  />
+{% endblock %}
+
 {% block title %}Lista de incidencias{% endblock %}
 
 {% block content %}
-    <h1 id="titulo"> Lista de Incidencias</h1>
-    <div class="container">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover table-condensed">
-                <tbody>
-                    <!-- En th va los titulos de las columnas -->
-                    <tr>
-                        <th>#</th>
-                        <th>Categoria</th>
-                        <th>Estado de la incidencia</th>
-                        <th>Usuario que reporto</th>
-                        <th>Votos</th>
-                        <th>Comentario</th>
-                        <th>Fecha</th>
-                    </tr>
-                    <!-- En td va el contenido -->
-                    {% if incidencias and incidencias_opi and incidencias_info %}
-                        {% for incidencia_info in incidencias_info %}
-                            <tr>
-                                <td>{{ incidencia_info.incidencia.id }}</td>
-                                <td>{{ incidencia_info.incidencia.categoria }}</td>
-                                <td>{{ incidencia_info.incidencia.estado }}</td>
-                                <td>{{ incidencia_info.incidencia.reportada_x_usuario }}</td>
-                                <td>NULL</td>      
-                                <td>{{ incidencia_info.comentario }}</td>
-                                <td>{{ incidencia_info.fecha }}</td>
-                                <td><a href="/historial/{{ incidencia_info.incidencia.id }}">Historial</a></td>
-                                <!-- Hacer un formulario -->
-                                <td><a href="#">Editar</a></td>
-                            </tr>
-                        {% endfor %}
-                    {% else %}
-                        <td>No existen datos a mostrar</td>
-                    {% endif %}
-                </tbody>
-            </table>
+    <h1 id="titulo"> Lista de Incidencias</h1>  
+    <div class="tabbable container">
+        <ul class="nav nav-tabs" id="myTabs">    
+            <li class="active"><a href="#enviados" data-toggle="tab">Enviadas</a></li>
+            <li><a href="#reparacion" data-toggle="tab">Reparacion</a></li>
+            <li><a href="#solucionadas" data-toggle="tab">Solucionadas</a></li>
+            <li><a href="#rechazadas" data-toggle="tab">Rechazadas</a></li>
+        </ul>
+     
+        <div class="tab-content">
+            <div class="tab-pane active" id="enviados">{% include "lista_incidencia_enviados.html" %}</div>
+            <div class="tab-pane" id="reparacion">{% include "lista_incidencia_reparacion.html" %}</div>
+            <div class="tab-pane" id="solucionadas">{% include "lista_incidencia_solucion.html" %}</div>
+            <div class="tab-pane" id="rechazadas">{% include "lista_incidencia_rechazado.html" %}</div>
         </div>
-    </div>    
+    </div>
+{% endblock %}
+
+{% block extraScripts %}
+    <script>
+        $(function() {    
+            $('#myTabs').bind('show', function(e) {    
+               var pattern=/#.+/gi //use regex to get anchor(==selector)
+               var contentID = e.target.toString().match(pattern)[0]; //get anchor         
+               //load content for selected tab
+                $(contentID).load(baseURL+contentID.replace('#',''), function(){
+                    $('#myTabs').tab(); //reinitialize tabs
+                });
+            });
+        });
+    </script>
 {% endblock %}

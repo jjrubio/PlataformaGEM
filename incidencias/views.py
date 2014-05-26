@@ -36,8 +36,18 @@ def marcadores_sin_revisar(request):
     return HttpResponse(json, mimetype='application/json')
 
 def lista (request):
-    incidencias = Incidencia.objects.all()
-    incidencias_info = Incidencia_info.objects.all()
-    incidencias_opi = Incidencia_opiniones.objects.all()
+    categorias_all                 = Incidencia.objects.all()
+    incidencias_enviadas           = Incidencia.objects.filter(estado=1)
+    incidencias_info               = Incidencia_info.objects.filter(incidencia=incidencias_enviadas).distinct()
+    
+    incidencias_reportadas         = Incidencia.objects.filter(estado=2)
+    incidencias_info_reportadas    = Incidencia_info.objects.filter(incidencia=incidencias_reportadas).distinct()
+
+    incidencias_solucionadas       = Incidencia.objects.filter(estado=3)
+    incidencias_info_solucionadas  = Incidencia_info.objects.filter(incidencia=incidencias_solucionadas).distinct()
+
+    incidencias_rechazadas         = Incidencia.objects.filter(estado=4)
+    incidencias_info_rechazadas    = Incidencia_info.objects.filter(incidencia=incidencias_rechazadas).distinct()
+
     template = "incidencia.html"
     return render_to_response(template, context_instance = RequestContext(request,locals()))
