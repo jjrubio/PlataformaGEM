@@ -11,6 +11,14 @@ class Categoria(models.Model):
     def __unicode__(self):
         return self.nombre
 
+class Estado(models.Model):
+    tipo = models.CharField(max_length=20)
+
+    def __unicode__(self):
+        return self.tipo
+
+    class Meta:
+        db_table = 'estado'
 
 class Incidencia(models.Model):
     reportada_x_usuario = models.ForeignKey(Usuario)

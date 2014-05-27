@@ -10,7 +10,7 @@
         <select class="form-control combo">
             {% if categorias_all %}
                 {% for cat in categorias_all %}
-                    <option value="{{ cat.categoria.id }}">{{ cat.categoria.nombre }}</option>
+                    <option value="{{ cat.id }}">{{ cat.nombre }}</option>
                 {% endfor %}
             {% else %}
                 <option value="1">No hay categorias a enseñar</option>
@@ -34,7 +34,7 @@
                         </div>
                         <div id="acciones">
                             <h4>Acciones</h4>
-                            <p><a href="/historial_incidencia/{{ incidencia_info.incidencia.id }}">Historial</a></p>
+                            <p><a href="/historial/{{ incidencia_info.incidencia.id }}">Historial</a></p>
                             <p><a href="#">Aceptar siguiente estado</a></p>
                         </div>
                     </div>

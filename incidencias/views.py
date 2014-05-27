@@ -36,7 +36,8 @@ def marcadores_sin_revisar(request):
     return HttpResponse(json, mimetype='application/json')
 
 def lista (request):
-    categorias_all                 = Incidencia.objects.all()
+    categorias_all                 = Categoria.objects.all()
+
     incidencias_enviadas           = Incidencia.objects.filter(estado=1)
     incidencias_info               = Incidencia_info.objects.filter(incidencia=incidencias_enviadas).distinct()
     
