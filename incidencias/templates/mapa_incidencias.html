@@ -29,22 +29,35 @@
                         <img class="img-incidence" src="" alt="imagen de incidencia">
                         <div class="caption row">
                             <div class="col-lg-2">
-                                <!-- <img class="icon-incidence" src=""> -->
-                                <i class="fa fa-asterisk"></i>
+                                <img class="icon-incidence" src="{{ STATIC_URL }}img/warning.png">
                             </div>
-                            <div class="col-lg-10">
-                                <h5 class="type-incidence text-center">Incidencia ambiental</h5>
+                            <div class="col-lg-8">
+                                <h5 class="type-incidence text-center"></h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2"></div>
             </div>
-            <div class="row">
-                <p class="description-incidence text-justify"><strong>Comentario: </strong>
-                    Casa en demolición
-                </p>
+            <div class="row description-incidence">
+                    <i class="fa fa-calendar pull-left"></i>
+                    <i class="fa fa-male pull-right"></i>
+                    <br><br>
+                    <b>Dirección: </b><span></span>
+                    <br><br>
+                    <b>Comentario: </b><span></span>
+                    <br><br>
+                    <b class="pull-left">Estado: </b><span></span>
+                    <i class="fa fa-slack pull-right"></i>
             </div>
+            <div class="row message-incidence">
+                    <!-- <form > -->
+                        <div class="text-center"><b>MENSAJE</b></div><br>
+                        <b>Titulo: </b><input type="text" name="titulo"><br><br>
+                        <b>Contenido: </b><input type="text" name="contenido">
+                    <!-- </form> -->
+            </div>
+            <br>
             <div class="row pull-right">
                 <div class="row">
                     <div class="col-xs-12">
@@ -59,10 +72,10 @@
                                         <div class="modal-body">
                                         <p>¿ Está seguro de llevar un seguimiento de este caso ?</p>
                                     </div>
-                                <div class="modal-footer">
-                                        <button type="button" data-dismiss="modal" class="btn btn-danger">Sí</button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-danger">No</button>
-                                </div>
+                                    <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger">Sí</button>
+                                            <button type="button" data-dismiss="modal" class="btn btn-danger">No</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -115,13 +128,16 @@
             $.get('/marcadores-sin-revisar/', function(data) {
 
                 $.each(data, function(marker) {
-                    plotPoint(data[marker].inc_coordenada,
-                                   data[marker].inc_categoria,//cambiar valor
-                                   '<div class=\'bubbleMap\'>'+data[marker].inc_comentario+'<hr/>'+'<i class=\'fa fa-male\'></i> jaruban <span class=\'pull-right\'><b># 5</b></span></div>',
+                    plotPoint(data[marker].inc_code,
+                                   data[marker].inc_usuario,
+                                   data[marker].inc_categoria,
+                                   data[marker].inc_coordenada,
+                                   data[marker].inc_direccion,
+                                   data[marker].inc_comentario,
+                                   data[marker].inc_fecha,
                                    {{MEDIA_URL}}+data[marker].inc_evidencia,
-                                   data[marker].inc_comentario);
+                                   data[marker].inc_estado);
 
-                    console.log(data[marker].inc_usuario);
                 });
 
             });
@@ -130,16 +146,46 @@
 
 
         //    Posiciona un marcador segun los datos enviados
-        function plotPoint(coordenada,estado,infoMarker,imagen,comentario)
+        function plotPoint(codigo, usuario, categoria, coordenada, direccion, comentario, fecha, imagen, estado)
         {
+            var iconMarker;
+            var infoMarker;
+
+            infoMarker = '<div class=\'bubbleMap\'>'+
+                                       '<span><i>'+comentario+'</i></span>'+
+                                       '<hr/>'+
+                                       '<i class=\'fa fa-male\'> '+usuario+'</i>'+
+                                       '<i class=\'fa fa-slack pull-right\'> '+codigo+'</i>'+
+                                '</div>';
+
+            switch (categoria) {
+                case "Construcción":
+                    iconMarker = '{{ STATIC_URL }}img/marcadores/construccion.png';
+                    break;
+                case "Limpieza / Reciclaje":
+                    iconMarker = '{{ STATIC_URL }}img/marcadores/reciclaje.png';
+                    break;
+                case "Medio Ambiente":
+                    iconMarker = '{{ STATIC_URL }}img/marcadores/ambiente.png';
+                    break;
+                case "Servicio Técnico":
+                    iconMarker = '{{ STATIC_URL }}img/marcadores/tecnico.png';
+                    break;
+                case "Policía":
+                    iconMarker = '{{ STATIC_URL }}img/marcadores/policia.png';
+                    break;
+                case "Otros":
+                    iconMarker = '{{ STATIC_URL }}img/marcadores/otros.png';
+                    console.log("aqui");
+                    break;
+            }
 
             var myLatlng = new google.maps.LatLng(coordenada.split(",")[0], coordenada.split(",")[1]);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                title: estado
+                icon: iconMarker,
             });
-            console.log(marker);
             markersArray.push(marker);
             var infowindow = new google.maps.InfoWindow({
                 content: infoMarker
@@ -154,11 +200,24 @@
                 $( "#img-map").removeClass( "col-lg-12" ).addClass( "col-lg-8" );
                 $( "#incidence").removeClass( "hidden" ).addClass( "show" );
                 $(".img-incidence").attr("src",imagen);
-                // $(".icon-incidence").attr("src","../images/categoria/"+title+".png");
-                // $(".type-incidence").text(detail);
+                $(".type-incidence").text(" " + categoria);
+                $(".description-incidence i:first-child").text(" " + fecha);
+                $(".description-incidence i:nth-child(2)").text(" " + usuario);
+                $(".description-incidence span:nth-child(6)").text(" " + direccion);
+                $(".description-incidence span:nth-child(10)").text(" " + comentario);
+                $(".description-incidence span:nth-child(14)").text(" " + estado);
+                $(".description-incidence i:last-child").text(" " + codigo);
             });
         }
 
+
+        //    Cerrar descripción de la incidencia
+        $(".close").on("click",function(){
+            $( "#img-map").removeClass( "col-lg-8" ).addClass( "col-lg-12" );
+            $( "#incidence").removeClass( "show" ).addClass( "hidden" );
+            activeWindow.close();
+            google.maps.visualRefresh = true;
+        });
     </script>
 
 

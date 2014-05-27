@@ -5821,6 +5821,10 @@ body .navbar {
 body .navbar .contain .navbar-header .navbar-brand {
   font-size: 25px;
 }
+body .thumbnail {
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
 body #img-map .panel-heading {
   margin: 10px 15px 0px 15px;
 }
@@ -5838,9 +5842,18 @@ body .panel .panel-heading .panel-title {
   font-size: 16px;
   color: #000;
 }
+body .img-incidence {
+  max-width: 340px;
+  max-height: 250px;
+}
 body .description-incidence {
   background-color: #FFF;
-  padding: 20px;
+  padding: 15px;
+}
+body .message-incidence {
+  background-color: #FFF;
+  margin-top: 10px;
+  padding: 15px;
 }
 body .table {
   background-color: #3F3F3F;
@@ -5848,5 +5861,10 @@ body .table {
 }
 body .bubbleMap {
   width: 250px;
-  font-size: 15px;
+}
+body .bubbleMap span {
+  font-size: 16px;
+}
+body .bubbleMap i {
+  font-size: 18px;
 }

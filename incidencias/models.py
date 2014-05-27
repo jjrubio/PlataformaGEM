@@ -31,8 +31,8 @@ class Incidencia(models.Model):
     class Meta:
         db_table = 'incidencia'
 
-    # def __unicode__(self):
-    #     return self.reportada_x_usuario
+    def __unicode__(self):
+        return self.reportada_x_usuario.nick +' - '+ self.categoria.nombre
 
 
 class Incidencia_info(models.Model):

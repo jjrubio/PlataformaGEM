@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context
 from django.template.context import RequestContext
-from historial.models import State, Report
+from historial.models import Report
 
 # Create your views here.
 def show_historial(request):
