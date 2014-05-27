@@ -6,7 +6,6 @@ from incidencias.models import Incidencia
 class Report(models.Model):
     fecha           =   models.DateTimeField(null=True, default=None)
     incidencia      =   models.ForeignKey(Incidencia)
-    estado          =   models.ForeignKey(State, default=1)
     comentario      =   models.CharField(max_length=255)
     usuario_login   =   models.ForeignKey(User, related_name='usuario_login')
 
