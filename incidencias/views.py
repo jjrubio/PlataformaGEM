@@ -19,6 +19,7 @@ def marcadores_sin_revisar(request):
             num = 0
             for data in Incidencia.objects.filter(categoria_id=cat):
                 info = Incidencia_info.objects.get(incidencia_id=data.id)
+                historial_actual = Report.objects.get(incidencia_id=data.id)
                 num = num + 1
                 dict_inc = {}
                 dict_inc['inc_code'] = num
@@ -29,7 +30,7 @@ def marcadores_sin_revisar(request):
                 dict_inc['inc_comentario'] = info.comentario
                 dict_inc['inc_fecha'] = "%s" % info.fecha
                 dict_inc['inc_evidencia'] = "%s" % info.imagen_path
-                dict_inc['inc_estado'] = info.incidencia.estado.tipo
+                dict_inc['inc_estado'] = historial_actual.estado.nombre
                 dict_inc['inc_visible'] = info.incidencia.visible
                 message.append(dict_inc)
     else:
@@ -47,7 +48,7 @@ def lista (request):
 
     #incidencias_enviadas           = Incidencia.objects.filter(estado=2)
     #incidencias_info               = Incidencia_info.objects.filter(incidencia=incidencias_enviadas).distinct()
-    
+
     #incidencias_reparacion         = Incidencia.objects.filter(estado=3)
 
     #incidencias_solucionadas       = Incidencia.objects.filter(estado=4)

@@ -1,37 +1,37 @@
 var map;
-  var markersArray = [];
-  var activeWindow;
+var markersArray = [];
+var activeWindow;
 
-  function RefreshMapControl(controlDiv, map) {
+function RefreshMapControl(controlDiv, map) {
 
-    controlDiv.style.padding = '5px';
+  controlDiv.style.padding = '5px';
 
-    // Set CSS for the control border
-    var controlUI = document.createElement('div');
-    controlUI.style.backgroundColor = 'white';
-    controlUI.style.borderStyle = 'solid';
-    controlUI.style.borderWidth = '2px';
-    controlUI.style.cursor = 'pointer';
-    controlUI.style.textAlign = 'center';
-    controlUI.title = 'Click para recargar la el mapa';
-    controlDiv.appendChild(controlUI);
+  // Set CSS for the control border
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click para recargar la el mapa';
+  controlDiv.appendChild(controlUI);
 
-    // Set CSS for the control interior
-    var controlText = document.createElement('div');
-    controlText.style.fontFamily = 'Arial,sans-serif';
-    controlText.style.fontSize = '12px';
-    controlText.style.paddingLeft = '4px';
-    controlText.style.paddingRight = '4px';
-    controlText.innerHTML = '<b>Recargar mapa</b>';
-    controlUI.appendChild(controlText);
+  // Set CSS for the control interior
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<b>Recargar mapa</b>';
+  controlUI.appendChild(controlText);
 
-    google.maps.event.addDomListener(controlUI, 'click', function() {
-          for (var i = 0; i < markersArray.length; i++) {
-              markersArray[i].setMap(null);
-            }
-          markersArray = [];
-          initialize();
-    });
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+    for (var i = 0; i < markersArray.length; i++) {
+        markersArray[i].setMap(null);
+      }
+    markersArray = [];
+    initialize();
+  });
 
   }
 
@@ -68,7 +68,8 @@ var map;
                              data[marker].inc_comentario,
                              data[marker].inc_fecha,
                              MEDIA_URL+data[marker].inc_evidencia,
-                             data[marker].inc_estado);
+                             data[marker].inc_estado
+             );
 
           });
 
@@ -77,7 +78,7 @@ var map;
 
 
   //    Posiciona un marcador segun los datos enviados
-  function plotPoint(codigo, usuario, categoria, coordenada, direccion, comentario, fecha, imagen, estado)
+  function plotPoint(codigo, usuario, categoria, coordenada, direccion, comentario, fecha, imagen,estado)
   {
       var iconMarker;
       var infoMarker;
@@ -107,7 +108,6 @@ var map;
               break;
           case "Otros":
               iconMarker = STATIC_URL + 'img/marcadores/otros.png';
-              console.log("aqui");
               break;
       }
 
@@ -126,7 +126,6 @@ var map;
               activeWindow.close();
           }
           infowindow.open(map,marker);
-          // infowindow.attr("width",200);
           activeWindow = infowindow;
           $( "#img-map").removeClass( "col-lg-12" ).addClass( "col-lg-8" );
           $( "#incidence").removeClass( "hidden" ).addClass( "show" );

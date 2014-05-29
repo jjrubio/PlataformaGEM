@@ -9,6 +9,17 @@
     <div id="img-map" class="panel panel-default col-lg-12">
         <div class="panel-heading">
             <h3 class="panel-title">Mapa de incidencias de la ciudad de Guayaquil</h3>
+
+            <select class="submenu-markers pull-right">
+              <option value="">Sin Revisar</option>
+              <option value="">En Reparación</option>
+              <option value="">Reparada</option>
+            </select>
+            <select class="menu-markers pull-right">
+              <option value="">Todas</option>
+              <option value="">Por Categoría</option>
+              <option value="">Por Estado</option>
+            </select>
         </div>
         <div class="panel-body">
             <div id="map-canvas"></div>
@@ -58,48 +69,9 @@
                     <!-- </form> -->
             </div>
             <br>
-            <div class="row pull-right">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="myModalSi" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                            <button class="close" data-dismiss="modal">&times;</button>
-                                            <span><img src="{{ STATIC_URL }}img/warning.png"></span><strong> AVISO</strong>
 
-                                        </div>
-                                        <div class="modal-body">
-                                        <p>¿ Está seguro de llevar un seguimiento de este caso ?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                            <button type="button" data-dismiss="modal" class="btn btn-danger">Sí</button>
-                                            <button type="button" data-dismiss="modal" class="btn btn-danger">No</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="myModalNo" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                            <button class="close" data-dismiss="modal">&times;</button>
-                                            <h3>AVISO</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                        <p>¿ Está seguro de eliminar este caso ?</p>
-                                    </div>
-                                <div class="modal-footer">
-                                        <button type="button" data-dismiss="modal" class="btn btn-primary">Sí</button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-danger">No</button>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="ajax.html" data-target="#myModalSi" data-toggle="modal" class="btn btn-primary">Aceptar</a>
-                        <a href="ajax.html" data-target="#myModalNo" data-toggle="modal" class="btn btn-primary">Rechazar</a>
-                    </div>
-                </div>
+            <a href="ajax.html" data-target="#myModalSi" data-toggle="modal" class="btn btn-primary">Aceptar</a>
+            <a href="ajax.html" data-target="#myModalNo" data-toggle="modal" class="btn btn-primary">Rechazar</a>
 
             </div>
         </div>
@@ -113,6 +85,7 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="{% static "js/map-api.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/modal.js" %}" type="text/javascript"></script>
 
 
 {% endblock %}
