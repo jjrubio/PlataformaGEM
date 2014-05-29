@@ -12,17 +12,131 @@
     <h1 id="titulo"> Lista de Incidencias</h1>  
     <div class="tabbable container">
         <ul class="nav nav-tabs" id="myTabs">    
-            <li class="active"><a href="#enviados" data-toggle="tab">Enviadas</a></li>
+            <li class="active"><a href="#aceptadas" data-toggle="tab">Aceptadas</a></li>
             <li><a href="#reparacion" data-toggle="tab">Reparacion</a></li>
             <li><a href="#solucionadas" data-toggle="tab">Solucionadas</a></li>
             <li><a href="#rechazadas" data-toggle="tab">Rechazadas</a></li>
         </ul>
+
+        <select class="form-control combo">
+            {% if categorias_all %}
+                {% for cat in categorias_all %}
+                    <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+                {% endfor %}
+            {% else %}
+                <option value="1">No hay categorias a enseñar</option>
+            {% endif %}
+        </select>
      
         <div class="tab-content">
-            <div class="tab-pane active" id="enviados">{% include "lista_incidencia_enviados.html" %}</div>
-            <div class="tab-pane" id="reparacion">{% include "lista_incidencia_reparacion.html" %}</div>
-            <div class="tab-pane" id="solucionadas">{% include "lista_incidencia_solucion.html" %}</div>
-            <div class="tab-pane" id="rechazadas">{% include "lista_incidencia_rechazado.html" %}</div>
+            <div class="tab-pane active" id="aceptadas">
+                {% if historial_estado and incidencias_info %}
+                    {% for incidencia_info_enviada in incidencias_info %}
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <p>Comentario de la incidencia: {{ incidencia_info_enviada.comentario }}</p>
+                            </div>
+                            <div class="panel-body">
+                                <img id="thumbnail" src="{{ STATIC_URL }}pic_incidencia/imagen.png" />
+                                <div id="informacion">
+                                    <h4>Información</h4>
+                                    <p>Categoria: {{ incidencia_info_enviada.incidencia.categoria }}</p>
+                                    <!-- REVISAR -->
+                                    <p>Estado actual: {{ historial_estado.estado }}</p>
+                                    <p>Usuario que reporto la incidencia: {{ incidencia_info_enviada.incidencia.reportada_x_usuario }}</p>
+                                    <p>Fecha: {{ incidencia_info_enviada.fecha }}</p>
+                                </div>
+                                <div id="acciones">
+                                    <h4>Acciones</h4>
+                                    <p><a href="/historial/{{ incidencia_info_enviada.incidencia.id }}">Historial</a></p>
+                                    <p><a href="#">Aceptar siguiente estado</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No existen datos a mostrar de Incidencias Aceptadas por el Administrador</p>
+                {% endif %}
+            </div>
+            <!--div class="tab-pane" id="reparacion">
+                {% if incidencias_reparacion %}
+                    {% for incidencia_repara in incidencias_reparacion %}
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <p>ID de la incidencia: {{ incidencia_repara.id }}</p>
+                            </div>
+                            <div class="panel-body">
+                                <img id="thumbnail" src="{{ STATIC_URL }}pic_incidencia/imagen.png" />
+                                <div id="informacion">
+                                    <h4>Información</h4>
+                                    <p>Categoria: {{ incidencia_repara.categoria }}</p>
+                                    <p>Estado actual: {{ incidencia_repara.estado }}</p>
+                                    <p>Usuario que reporto la incidencia: {{ incidencia_repara.reportada_x_usuario }}</p>
+                                </div>
+                                <div id="acciones">
+                                    <h4>Acciones</h4>
+                                    <p><a href="/historial/{{ incidencia_repara.id }}">Historial</a></p>
+                                    <p><a href="#">Aceptar siguiente estado</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No existen datos a mostrar de Incidencias en Reparacion</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="solucionadas">
+                {% if incidencias_solucionadas %}
+                    {% for incidencia_soluc in incidencias_solucionadas %}
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <p>ID de la incidencia: {{ incidencia_soluc.id }}</p>
+                            </div>
+                            <div class="panel-body">
+                                <img id="thumbnail" src="{{ STATIC_URL }}pic_incidencia/imagen.png" />
+                                <div id="informacion">
+                                    <h4>Información</h4>
+                                    <p>Categoria: {{ incidencia_soluc.categoria }}</p>
+                                    <p>Estado actual: {{ incidencia_soluc.estado }}</p>
+                                    <p>Usuario que reporto la incidencia: {{ incidencia_soluc.reportada_x_usuario }}</p>
+                                </div>
+                                <div id="acciones">
+                                    <h4>Acciones</h4>
+                                    <p><a href="/historial/{{ incidencia_soluc.id }}">Historial</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No existen datos a mostrar de Incidencias Solucionadas</p>
+                {% endif %}
+            </div-->
+            <div class="tab-pane" id="rechazadas">
+                {% if historial_rechazado %}
+                    {% for incidencia_recha in historial_rechazado %}
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <p>ID de la incidencia: {{ incidencia_recha.incidencia.id }}</p>
+                            </div>
+                            <div class="panel-body">
+                                <img id="thumbnail" src="{{ STATIC_URL }}pic_incidencia/imagen.png" />
+                                <div id="informacion">
+                                    <h4>Información</h4>
+                                    <p>Comentario del Administrador: {{ incidencia_recha.comentario }}</p>
+                                    <p>Fecha: {{ incidencia_recha.fecha }}</p>
+                                    <p>Estado actual: {{ incidencia_recha.estado.nombre }}</p>
+                                </div>
+                                <div id="acciones">
+                                    <h4>Acciones</h4>
+                                    <p><a href="/historial/{{ incidencia_recha.id }}">Historial</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No existen datos a mostrar de Incidencias Rechazadas</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

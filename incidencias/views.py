@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedir
 from django.template.context import RequestContext
 from django.utils import simplejson
 from models import *
+from historial.models import Estado, Report
 
 
 def mapa_incidencias(request):
@@ -35,3 +36,23 @@ def marcadores_sin_revisar(request):
         return HttpResponseRedirect("/")
     json = simplejson.dumps(message)
     return HttpResponse(json, mimetype='application/json')
+
+def lista (request):
+    categorias_all                 = Categoria.objects.all()
+
+    historial_estado               = Report.objects.filter(estado=2)
+    incidencias_info               = Incidencia_info.objects.filter(incidencia=historial_estado).distinct()
+
+    historial_rechazado            = Report.objects.filter(estado=5)
+
+    #incidencias_enviadas           = Incidencia.objects.filter(estado=2)
+    #incidencias_info               = Incidencia_info.objects.filter(incidencia=incidencias_enviadas).distinct()
+    
+    #incidencias_reparacion         = Incidencia.objects.filter(estado=3)
+
+    #incidencias_solucionadas       = Incidencia.objects.filter(estado=4)
+
+    #incidencias_rechazadas         = Incidencia.objects.filter(estado=5)
+
+    template = "incidencia.html"
+    return render_to_response(template, context_instance = RequestContext(request,locals()))
