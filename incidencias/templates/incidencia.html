@@ -9,9 +9,9 @@
 {% block title %}Lista de incidencias{% endblock %}
 
 {% block content %}
-    <h1 id="titulo"> Lista de Incidencias</h1>  
+    <h1 id="titulo"> Lista de Incidencias</h1>
     <div class="tabbable container">
-        <ul class="nav nav-tabs" id="myTabs">    
+        <ul class="nav nav-tabs" id="myTabs">
             <li class="active"><a href="#aceptadas" data-toggle="tab">Aceptadas</a></li>
             <li><a href="#reparacion" data-toggle="tab">Reparacion</a></li>
             <li><a href="#solucionadas" data-toggle="tab">Solucionadas</a></li>
@@ -27,7 +27,7 @@
                 <option value="1">No hay categorias a enseñar</option>
             {% endif %}
         </select>
-     
+
         <div class="tab-content">
             <div class="tab-pane active" id="aceptadas">
                 {% if historial_estado and incidencias_info %}
@@ -37,7 +37,7 @@
                                 <p>Comentario de la incidencia: {{ incidencia_info_enviada.comentario }}</p>
                             </div>
                             <div class="panel-body">
-                                <img id="thumbnail" src="{{ STATIC_URL }}pic_incidencia/imagen.png" />
+                                <img id="thumbnail" src="{{ MEDIA_URL }}{{ incidencia_info_enviada.imagen_path}}" />
                                 <div id="informacion">
                                     <h4>Información</h4>
                                     <p>Categoria: {{ incidencia_info_enviada.incidencia.categoria }}</p>
@@ -143,10 +143,10 @@
 
 {% block extraScripts %}
     <script>
-        $(function() {    
-            $('#myTabs').bind('show', function(e) {    
+        $(function() {
+            $('#myTabs').bind('show', function(e) {
                var pattern=/#.+/gi //use regex to get anchor(==selector)
-               var contentID = e.target.toString().match(pattern)[0]; //get anchor         
+               var contentID = e.target.toString().match(pattern)[0]; //get anchor
                //load content for selected tab
                 $(contentID).load(baseURL+contentID.replace('#',''), function(){
                     $('#myTabs').tab(); //reinitialize tabs
