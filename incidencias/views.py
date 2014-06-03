@@ -38,22 +38,20 @@ def marcadores_sin_revisar(request):
     json = simplejson.dumps(message)
     return HttpResponse(json, mimetype='application/json')
 
-def lista (request):
+def lista_categoria_estados (request):
     categorias_all                 = Categoria.objects.all()
-
-    historial_estado               = Report.objects.filter(estado=2)
-    incidencias_info               = Incidencia_info.objects.filter(incidencia=historial_estado).distinct()
-
-    historial_rechazado            = Report.objects.filter(estado=5)
-
-    #incidencias_enviadas           = Incidencia.objects.filter(estado=2)
-    #incidencias_info               = Incidencia_info.objects.filter(incidencia=incidencias_enviadas).distinct()
-
-    #incidencias_reparacion         = Incidencia.objects.filter(estado=3)
-
-    #incidencias_solucionadas       = Incidencia.objects.filter(estado=4)
-
-    #incidencias_rechazadas         = Incidencia.objects.filter(estado=5)
-
+    estados_all                    = Estado.objects.all()
+    incidencias                    = Incidencia.objects.filter(estado=1)
+    incidencias_info               = Incidencia_info.objects.filter(incidencia=incidencias).distinct()
     template = "incidencia.html"
     return render_to_response(template, context_instance = RequestContext(request,locals()))
+
+def filtro(request):
+    id_cat = request.GET['id_cat']
+    incidencias_by_categoria = Incidencia.objects.filter(categoria=id_cat)
+    print incidencias_by_categoria
+    info_incidencia_categoria = Incidencia_info.objects.filter(incidencia=incidencias_by_categoria)
+    print info_incidencia_categoria
+    data = serializers.serialize('json', info_incidencia_categoria)
+    print data
+    return HttpResponse(data, mimetype='application/json')
