@@ -148,3 +148,22 @@ function RefreshMapControl(controlDiv, map) {
       activeWindow.close();
       google.maps.visualRefresh = true;
   });
+
+  $('.menu-markers').on('change', function() {
+      if(this.value == 0){
+        $('.submenu-markers').removeClass( 'show' );
+        $('.submenu-markers').addClass( 'hidden' );
+      }else{
+        $('.submenu-markers').removeClass( 'hidden' );
+        $('.submenu-markers').addClass( 'show' );
+        // if(this.value == 1){
+          $.get('/filtro-mapa/'+this.value, function(data) {
+            $('.submenu-markers').empty();
+            $.each(data, function(valor) {
+              $('.submenu-markers').append('<option value=\''+valor+'\'>'+data[valor].opcion+'</option>')
+            });
+          });
+        // }
+      }
+
+  });

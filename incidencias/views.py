@@ -46,6 +46,22 @@ def lista_categoria_estados (request):
     template = "incidencia.html"
     return render_to_response(template, context_instance = RequestContext(request,locals()))
 
+def filtro_mapa(request, type):
+    if request.is_ajax():
+        message = []
+        if (type == '1'):
+            filtroType = Categoria.objects.all()
+        else:
+            filtroType = Estado.objects.all()
+        for filtro in filtroType:
+            dict_filtro ={}
+            dict_filtro['opcion'] = filtro.nombre
+            message.append(dict_filtro)
+    else:
+        return HttpResponseRedirect("/")
+    json = simplejson.dumps(message)
+    return HttpResponse(json, mimetype='application/json')
+
 def filtro(request):
     id_cat = request.GET['id_cat']
     incidencias_by_categoria = Incidencia.objects.filter(categoria=id_cat)
