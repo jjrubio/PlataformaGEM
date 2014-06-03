@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^mapa-incidencias/', 'incidencias.views.mapa_incidencias', name='mapa'),
     url(r'^marcadores-sin-revisar/', 'incidencias.views.marcadores_sin_revisar', name='markers_unrevised'),
+    url(r'^filtro-mapa/(?P<type>\d+)/$', 'incidencias.views.filtro_mapa', name='map_filter'),
     url(r'^incidencia/', 'incidencias.views.lista', name='list'),
     url(r'^historial/(?P<incidencia_id>\d+)/$', 'historial.views.show_historial_id', name='historyID'),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

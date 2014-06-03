@@ -5828,10 +5828,14 @@ body .thumbnail {
 body #img-map .panel-heading {
   margin: 10px 15px 0px 15px;
 }
+body .title-menu-markers {
+  margin-top: -20px;
+  margin-right: 10px;
+}
 body .menu-markers,
 body .submenu-markers {
   margin-top: -18px;
-  margin-left: 5px;
+  margin-right: 5px;
 }
 body #incidence {
   height: 75%;

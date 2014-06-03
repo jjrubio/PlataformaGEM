@@ -10,20 +10,18 @@
         <div class="panel-heading">
             <h3 class="panel-title">Mapa de incidencias de la ciudad de Guayaquil</h3>
 
-            <select class="submenu-markers pull-right">
-              <option value="">Sin Revisar</option>
-              <option value="">En Reparación</option>
-              <option value="">Reparada</option>
+
+            <select class="submenu-markers pull-right hidden">
             </select>
             <select class="menu-markers pull-right">
-              <option value="">Todas</option>
-              <option value="">Por Categoría</option>
-              <option value="">Por Estado</option>
+              <option value="0">Todas</option>
+              <option value="1">Categorías</option>
+              <option value="2">Estados</option>
             </select>
+            <span class="panel-title pull-right title-menu-markers">Filtrar por : </span>
         </div>
         <div class="panel-body">
             <div id="map-canvas"></div>
-        </div>
     </div>
     <!--Panel de la incidencia-->
     <div id="incidence" class="panel panel-default col-lg-4 hidden">
