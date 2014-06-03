@@ -15,6 +15,7 @@ class Incidencia(models.Model):
     reportada_x_usuario = models.ForeignKey(Usuario)
     categoria = models.ForeignKey(Categoria)
     visible = models.IntegerField(null=True, default=None)
+    estado = models.IntegerField(null=True)
 
     class Meta:
         db_table = 'incidencia'
