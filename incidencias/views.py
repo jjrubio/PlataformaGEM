@@ -3,6 +3,7 @@ from django.template.context import RequestContext
 from django.utils import simplejson
 from models import *
 from historial.models import Estado, Report
+from django.core import serializers
 
 
 def mapa_incidencias(request):
@@ -83,12 +84,12 @@ def filtro_mapa(request, type):
     return HttpResponse(json, mimetype='application/json')
 
 
-def filtro(request):
+def filtro_ajax(request):
     id_cat = request.GET['id_cat']
     incidencias_by_categoria = Incidencia.objects.filter(categoria=id_cat)
-    print incidencias_by_categoria
+    #print incidencias_by_categoria
     info_incidencia_categoria = Incidencia_info.objects.filter(incidencia=incidencias_by_categoria)
-    print info_incidencia_categoria
+
     data = serializers.serialize('json', info_incidencia_categoria)
     print data
     return HttpResponse(data, mimetype='application/json')
