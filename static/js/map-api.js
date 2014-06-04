@@ -2,6 +2,14 @@ var map;
 var markersArray = [];
 var activeWindow;
 
+
+function  removeMarkers(){
+  for (var i = 0; i < markersArray.length; i++) {
+    markersArray[i].setMap(null);
+  }
+  markersArray = [];
+}
+
 function RefreshMapControl(controlDiv, map) {
 
   controlDiv.style.padding = '5px';
@@ -26,11 +34,8 @@ function RefreshMapControl(controlDiv, map) {
   controlUI.appendChild(controlText);
 
   google.maps.event.addDomListener(controlUI, 'click', function() {
-    for (var i = 0; i < markersArray.length; i++) {
-        markersArray[i].setMap(null);
-      }
-    markersArray = [];
-    initialize();
+    removeMarkers();
+    addMarkers(($('.menu-markers option:selected').val()), ($('.submenu-markers option:selected').val()));
   });
 
   }
@@ -56,24 +61,27 @@ function RefreshMapControl(controlDiv, map) {
   });
 
 
+  function addMarkers(v1, v2){
+    $.get('/marcadores-filtrados/'+v1+'/'+v2, function(data) {
+        $.each(data, function(marker) {
+            plotPoint(data[marker].inc_code,
+                           data[marker].inc_usuario,
+                           data[marker].inc_categoria,
+                           data[marker].inc_coordenada,
+                           data[marker].inc_direccion,
+                           data[marker].inc_comentario,
+                           data[marker].inc_fecha,
+                           MEDIA_URL+data[marker].inc_evidencia,
+                           data[marker].inc_estado
+           );
+
+        });
+
+    });
+  }
+
   function initialize(){
-      $.get('/marcadores-sin-revisar/', function(data) {
-
-          $.each(data, function(marker) {
-              plotPoint(data[marker].inc_code,
-                             data[marker].inc_usuario,
-                             data[marker].inc_categoria,
-                             data[marker].inc_coordenada,
-                             data[marker].inc_direccion,
-                             data[marker].inc_comentario,
-                             data[marker].inc_fecha,
-                             MEDIA_URL+data[marker].inc_evidencia,
-                             data[marker].inc_estado
-             );
-
-          });
-
-      });
+    addMarkers(1,1);
   }
 
 
@@ -150,20 +158,30 @@ function RefreshMapControl(controlDiv, map) {
   });
 
   $('.menu-markers').on('change', function() {
-      if(this.value == 0){
+      if(this.value == 1){
         $('.submenu-markers').removeClass( 'show' );
         $('.submenu-markers').addClass( 'hidden' );
+        $.get('/filtro-mapa/'+this.value, function(data) {
+          removeMarkers();
+          addMarkers(($('.menu-markers option:selected').val()), 1);
+        });
       }else{
         $('.submenu-markers').removeClass( 'hidden' );
         $('.submenu-markers').addClass( 'show' );
-        // if(this.value == 1){
           $.get('/filtro-mapa/'+this.value, function(data) {
+            removeMarkers();
+            addMarkers(($('.menu-markers option:selected').val()), 1);
             $('.submenu-markers').empty();
             $.each(data, function(valor) {
-              $('.submenu-markers').append('<option value=\''+valor+'\'>'+data[valor].opcion+'</option>')
+              $('.submenu-markers').append('<option value=\''+(valor+1)+'\'>'+data[valor].opcion+'</option>')
             });
           });
         // }
       }
 
+  });
+
+  $('.submenu-markers').on('change', function() {
+    removeMarkers();
+    addMarkers(($('.menu-markers option:selected').val()), ($('.submenu-markers option:selected').val()));
   });
