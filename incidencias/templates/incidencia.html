@@ -35,12 +35,14 @@
             {% endif %}
         </select>
 
-        <div id="datos"></div>
+        <div class="container" id="datos"></div>
     </div>
 {% endblock %}
 
 {% block extraScripts %}
-    <!-- script type="text/javascript" src="{% static "js/jquery.js" %}"></script -->
+    <script type="text/javascript">
+        var MEDIA_URL = {{MEDIA_URL}};
+    </script>
     <script>
         $(function() {
             $('#myTabs').bind('show', function(e) {
@@ -52,34 +54,5 @@
                 });
             });
         });
-    </script>
-    <script>
-        $('select').on('change',inicio);
-        function inicio(){
-            var id_cat = $(this).val();
-            $.getJSON('/filtro_ajax/', {'id_cat':id_cat},
-            function(data){
-                $.each(data, function(index, item){
-                    div = '<div class="tab-content">'+
-                                '<div class="tab-pane active" id="enReparacion">'+
-                                    '<div class="panel panel-danger">'+
-                                        '<div class"panel-heading">'+
-                                            '<p>'+'ID de a incidencia: '+item.fields.incidencia+'</p>'+
-                                        '</div>'+
-                                        '<div class="panel-body">'+
-                                            '<img id="thumbnail" src="{{ MEDIA_URL }}incidencias/imagen01.jpg" />'+
-                                            '<div id="informacion">'+
-                                                '<h4>'+'Informacion'+'</h4>'+
-                                                '<p>'+'Fecha de la Incidencia: '+item.fields.fecha+'</p>'+
-                                                '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>';
-                    $('#datos').append(div);
-                });
-            });
-        }
     </script>
 {% endblock %}

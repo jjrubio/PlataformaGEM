@@ -1,7 +1,6 @@
 from django.db import models
 from usuarios.models import Usuario
 
-
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50, null=True, default=None)
 
@@ -11,11 +10,20 @@ class Categoria(models.Model):
     def __unicode__(self):
         return self.nombre
 
+class Voto(models.Model):
+    tipo = models.CharField(max_length=3, null=True, default=None)
+
+    class Meta:
+        db_table = 'voto'
+
+    def __unicode__(self):
+        return self.tipo
+
 class Incidencia(models.Model):
     reportada_x_usuario = models.ForeignKey(Usuario)
     categoria = models.ForeignKey(Categoria)
     visible = models.IntegerField(null=True, default=None)
-    estado = models.IntegerField(null=True)
+    estado_id = models.IntegerField(null=True, default=1)
 
     class Meta:
         db_table = 'incidencia'
@@ -42,11 +50,11 @@ class Incidencia_info(models.Model):
 class Incidencia_opiniones(models.Model):
     incidencia = models.ForeignKey(Incidencia)
     usuario = models.ForeignKey(Usuario)
-    voto = models.IntegerField(null=True, default=None)
+    voto_id = models.ForeignKey(Voto)
     comentario = models.CharField(max_length=512, null=True, default=None)
 
     class Meta:
-        db_table = 'Incidencia_opiniones'
+        db_table = 'incidencia_opiniones'
 
     def __unicode__(self):
         return self.comentario
