@@ -1,9 +1,8 @@
 from django.contrib import admin
-from models import Report, Estado
+from models import Reporte, Estado
 
-# Register your models here
-class list_report(admin.ModelAdmin):
+class list_reporte(admin.ModelAdmin):
 	lista = ('comentario', 'fecha',)
 
-admin.site.register(Report, list_report)
+admin.site.register(Reporte, list_reporte)
 admin.site.register(Estado)

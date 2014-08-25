@@ -7,7 +7,7 @@ class Mensaje(models.Model):
     fecha = models.DateTimeField(null=True, default=None)
     cuerpo = models.CharField(max_length=250, null=True, default=None)
     imagen_path = models.ImageField(max_length=250, upload_to='mensajes/', null=True, default=None)
-    destinatario_usuario_id = models.IntegerField()
+    destinatario_usuario = models.ForeignKey(Usuario)
     visible = models.IntegerField(null=True, default=1)
 
     class Meta:
