@@ -41,15 +41,15 @@ def marcadores_filtrados(request, vtype, vsubtype):
                     num = num +1
                     message.append(get_dictionary_markers(data, num))
         if vtype == '2':
-            for cat in range(Categoria.objects.filter(id = subtype).count()+1):
+            for cat in range(Categoria.objects.filter(id=vsubtype).count()+1):
                 num = 0
-                for data in Incidencia.objects.filter(categoria_id=subtype):
+                for data in Incidencia.objects.filter(categoria_id=vsubtype):
                     num = num +1
                     message.append(get_dictionary_markers(data, num))
         if vtype == '3':
             for cat in range(Categoria.objects.count()+1):
                 num = 0
-                for data in Incidencia.objects.filter(estado=subtype):
+                for data in Incidencia.objects.filter(estado=vsubtype):
                     num = num +1
                     message.append(get_dictionary_markers(data, num))
     else:
