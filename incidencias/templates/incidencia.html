@@ -11,13 +11,13 @@
 {% block content %}
     <h1 id="titulo"> Lista de Incidencias</h1>
     <div class="tabbable container">
-        <ul class="nav nav-tabs" id="myTabs">
+        <ul class="nav nav-tabs" role="tablist" id="myTabs">
             {% if estados_all %}
                 {% for est in estados_all %}
                     {% if forloop.first %}
-                        <li href="#{{ est.id }}" class="active"><a>{{ est.nombre }}</a></li>
+                        <li id="{{est.id}}" class="active"><a href="#{{est.id}}" role="tab" data-toggle="tab">{{est.tipo}}</a></li>
                     {% else %}
-                        <li href="#{{ est.id }}" ><a>{{ est.nombre }}</a></li>
+                        <li id="{{est.id}}"><a href="#{{est.id}}" role="tab" data-toggle="tab">{{est.tipo}}</a></li>
                     {% endif %}
                 {% endfor %}
             {% else %}
@@ -27,6 +27,7 @@
 
         <select class="form-control combo">
             {% if categorias_all %}
+                <option value="0">Escoja una categoria</option>
                 {% for cat in categorias_all %}
                     <option value="{{ cat.id }}">{{ cat.nombre }}</option>
                 {% endfor %}
@@ -34,25 +35,38 @@
                 <option value="1">No hay categorias a enseñar</option>
             {% endif %}
         </select>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="container" id="datos"></div>
+        </div>
 
-        <div class="container" id="datos"></div>
+        <!--Modal-->
+        <div class="modal fade" id="test_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Siguiente Estado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" name="admin_comment" id="admin_comment" value="" />
+                            <textarea rows="6" cols="68" name="textarea_comment"></textarea>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
 
 {% block extraScripts %}
     <script type="text/javascript">
         var MEDIA_URL = {{MEDIA_URL}};
-    </script>
-    <script>
-        $(function() {
-            $('#myTabs').bind('show', function(e) {
-               var pattern=/#.+/gi //use regex to get anchor(==selector)
-               var contentID = e.target.toString().match(pattern)[0]; //get anchor
-               //load content for selected tab
-                $(contentID).load(baseURL+contentID.replace('#',''), function(){
-                    $('#myTabs').tab(); //reinitialize tabs
-                });
-            });
-        });
     </script>
 {% endblock %}

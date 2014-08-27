@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^incidencia/', 'incidencias.views.lista_categoria_estados', name='list'),
     url(r'^filtro-mapa/(?P<type>\d+)/$', 'incidencias.views.filtro_mapa', name='map_filter'),
     url(r'^historial/(?P<incidencia_id>\d+)/$', 'historial.views.show_historial_id', name='historyID'),
-    url(r'^filtro_ajax/$', 'incidencias.views.filtro_ajax', name='filtro-ajax'),
+    url(r'^filtro_tabs_selec/$', 'incidencias.views.filtroTabSelec', name='filtro-filtro-tabs-selec'),
+    url(r'^filtro_tabs/$', 'incidencias.views.filtroTabs', name='filtro-tabs'),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

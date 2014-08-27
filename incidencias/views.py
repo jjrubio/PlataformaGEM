@@ -88,11 +88,35 @@ def filtro_mapa(request, type):
     return HttpResponse(json, content_type='application/json')
 
 
-def filtro_ajax(request):
+def filtroTabSelec(request):
+    id_estado = request.GET['id_estado']
     id_cat = request.GET['id_cat']
-    incidencias_by_categoria = Incidencia.objects.filter(categoria=id_cat)
-    info_incidencia_categoria = Incidencia_info.objects.filter(incidencia=incidencias_by_categoria)
 
-    data = serializers.serialize('json', info_incidencia_categoria)
-    # print data
+    incidencias_by_categoria_by_estado = Incidencia.objects.filter(categoria=id_cat).filter(estado=id_estado)
+    info_incidencia_categoria_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_categoria_by_estado)
+
+    data = serializers.serialize('json', info_incidencia_categoria_estado)
+    print data
+    return HttpResponse(data, content_type='application/json')
+
+def filtroTabs(request):
+    id_estados = request.GET['id_estados']
+    result = []
+    datos = {}
+
+    incidencias_by_estado = Incidencia.objects.filter(estado=id_estados)
+    info_incidencia_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_estado)
+
+    for i in info_incidencia_estado:
+        datos['id_incidencia'] = i.incidencia.pk
+        datos['reportada_x_usuario_incidencia'] = i.incidencia.reportada_x_usuario
+        datos['comentario_incidencia'] = i.comentario
+        datos['fecha_incidencia'] = i.fecha
+        datos['imagen_incidencia'] = i.imagen_path
+
+        result.append(datos)
+
+    #data = serializers.serialize('json',datos)
+    data = serializers.serialize('json',info_incidencia_estado)
+
     return HttpResponse(data, content_type='application/json')
