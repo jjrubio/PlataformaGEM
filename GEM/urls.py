@@ -7,7 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'GEM.views.home', name='home'),
+    url(r'^$', 'incidencias.views.mapa_incidencias', name='mapa2'),
     # url(r'^blog/', include('blog.urls')),
     (r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),

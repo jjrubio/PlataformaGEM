@@ -153,7 +153,7 @@ def estadoActualizacion(request):
     fecha_incidencia = request.GET['fecha_incidencia']
     id_usuario = request.GET['id_usuario']
     comentario = request.GET['comentario']
-    
+
     id_incidencia_int = int(id_incidencia)
     id_estado_int = int(id_estado)
     id_usuario_int = int(id_usuario)
