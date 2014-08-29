@@ -128,3 +128,19 @@ def filtroTabs(request):
     data = serializers.serialize('json',info_incidencia_estado)
 
     return HttpResponse(data, content_type='application/json')
+
+def estadoActualizacion(request):
+    id_incidencia = request.GET['id_incidencia']
+    id_estado = request.GET['id_estado']
+
+    id_incidencia_int = int(id_incidencia)
+    id_estado_int = int(id_estado)
+    current_state = id_estado_int
+    next_state = (id_estado_int + 1)
+
+    incidencia_update = Incidencia.objects.filter(id=id_incidencia_int).update(estado=next_state)
+    incidencias_current_state = Incidencia.objects.filter(estado=current_state)
+    info_incidencia_current_state = Incidencia_info.objects.filter(incidencia=incidencias_current_state)
+
+    data = serializers.serialize('json',info_incidencia_current_state)
+    return HttpResponse(data, content_type='application/json')
