@@ -21,6 +21,7 @@ function init(){
                                         '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                     '</div>'+
                                 '</div>'+
+                                '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                                 '<button type="button" value='+item.pk+' class="btn btn-info" >Siguiente Estado</button>'+
                             '</div>'+
                         '</div>'+
@@ -50,6 +51,7 @@ $('#myTabs li').click(function () {
                                     '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                 '</div>'+
                             '</div>'+
+                            '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                             '<button type="button" value='+item.pk+' class="btn btn-info" >Siguiente Estado</button>'+
                         '</div>'+
                     '</div>'+
@@ -70,6 +72,7 @@ $('#myTabs li').click(function () {
                                     '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                 '</div>'+
                             '</div>'+
+                            '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                         '</div>'+
                     '</div>'+
                 '</div>';
@@ -101,6 +104,7 @@ $('select').change(function(){
                                         '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                     '</div>'+
                                 '</div>'+
+                                '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                                 '<button type="button" value='+item.pk+' class="btn btn-info" >Siguiente Estado</button>'+
                             '</div>'+
                         '</div>'+
@@ -121,6 +125,7 @@ $('select').change(function(){
                                         '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                     '</div>'+
                                 '</div>'+
+                                '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                             '</div>'+
                         '</div>'+
                     '</div>';
@@ -156,7 +161,7 @@ $('body').on("click", ".btn-primary", function (){
     var id_usuario = $('#id_usuario').val();
     var comentario = $('#comment').val();
 
-    $.getJSON('/update_state/', {'id_incidencia': id_incidencia, 'id_estado': id_estado},
+    $.getJSON('/update_state/', {'id_incidencia':id_incidencia, 'id_estado':id_estado, 'fecha_incidencia':fecha_incidencia, 'id_usuario':id_usuario, 'comentario':comentario},
     function(data){
         $('#datos').children().remove();
         $.each(data, function(index, item){
@@ -175,6 +180,7 @@ $('body').on("click", ".btn-primary", function (){
                                         '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                     '</div>'+
                                 '</div>'+
+                                '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                                 '<button type="button" value='+item.pk+' class="btn btn-info" >Siguiente Estado</button>'+
                             '</div>'+
                         '</div>'+
@@ -195,6 +201,7 @@ $('body').on("click", ".btn-primary", function (){
                                         '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
                                     '</div>'+
                                 '</div>'+
+                                '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
                             '</div>'+
                         '</div>'+
                     '</div>';
@@ -210,4 +217,6 @@ $('body').on("click", ".btn-primary", function (){
 $('body').on("click", ".btn-default", function (){
     $('#test_modal').modal('hide');
 });
-
+$('body').on("click", "#btn-historial", function (){       
+    $('#test_modal').modal('hide');
+});

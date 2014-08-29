@@ -3,7 +3,7 @@
 {% load static from staticfiles %}
 
 {% block content %}
-    <h1 id="titulo"> Historial de Incidencias ID {{reportes.incidencia.id}}</h1>
+    <h1 id="titulo"> Historial de Incidencias</h1>
     <div class="container">
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-condensed">
@@ -20,6 +20,7 @@
                         {% for repor in reportes %}
                             <tr>
                                 <td>{{ repor.fecha }}</td>
+                                <td>{{ repor.estado }}</td>
                                 <td>{{ repor.comentario }}</td>
                                 <td>{{ repor.usuario_login }}</td>
                             </tr>
