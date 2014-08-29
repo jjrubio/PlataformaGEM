@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^historial/(?P<incidencia_id>\d+)/$', 'historial.views.show_historial_id', name='historyID'),
     url(r'^filtro_tabs_selec/$', 'incidencias.views.filtroTabSelec', name='filtro-filtro-tabs-selec'),
     url(r'^filtro_tabs/$', 'incidencias.views.filtroTabs', name='filtro-tabs'),
+    url(r'^update_state/$','incidencias.views.estadoActualizacion', name='update-state'),
 )+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
