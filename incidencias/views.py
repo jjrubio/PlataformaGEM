@@ -6,6 +6,7 @@ from historial.models import Estado, Reporte
 from mensajes.forms import MensajeForm
 from mensajes.models import Mensaje
 from django.core import serializers
+from django.contrib.auth.models import User
 
 
 def mapa_incidencias(request):
@@ -146,14 +147,27 @@ def filtroTabs(request):
     return HttpResponse(data, content_type='application/json')
 
 def estadoActualizacion(request):
+
     id_incidencia = request.GET['id_incidencia']
     id_estado = request.GET['id_estado']
-
+    fecha_incidencia = request.GET['fecha_incidencia']
+    id_usuario = request.GET['id_usuario']
+    comentario = request.GET['comentario']
+    
     id_incidencia_int = int(id_incidencia)
     id_estado_int = int(id_estado)
+    id_usuario_int = int(id_usuario)
     current_state = id_estado_int
     next_state = (id_estado_int + 1)
 
+    #Insert
+    objecto_id_incidencia = Incidencia.objects.get(id=id_incidencia_int)
+    objecto_id_estado = Estado.objects.get(id=next_state)
+    objecto_id_usuario = User.objects.get(id=id_usuario_int)
+    r = Reporte(comentario=comentario,fecha=fecha_incidencia,incidencia=objecto_id_incidencia,estado=objecto_id_estado,usuario_login=objecto_id_usuario)
+    r.save()
+
+    #Update
     incidencia_update = Incidencia.objects.filter(id=id_incidencia_int).update(estado=next_state)
     incidencias_current_state = Incidencia.objects.filter(estado=current_state)
     info_incidencia_current_state = Incidencia_info.objects.filter(incidencia=incidencias_current_state)
