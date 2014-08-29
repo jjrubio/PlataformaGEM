@@ -3,7 +3,7 @@ from django.template.context import RequestContext
 from django.utils import simplejson
 from models import *
 from historial.models import Estado, Reporte
-from mensajes.forms import
+from mensajes.forms import MensajeForm
 from django.core import serializers
 
 
