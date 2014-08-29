@@ -145,8 +145,18 @@ function RefreshMapControl(controlDiv, map) {
           $(".description-incidence span:nth-child(10)").text(" " + comentario);
           $(".description-incidence span:nth-child(14)").text(" " + estado);
           $(".description-incidence i:last-child").text(" " + codigo);
+
+          $(".modal-body span").text(" "+usuario);
+          $(".nick_modal").val(usuario);
+          $(".title_modal").val('');
+          $(".message_modal").val('');
+          $(".image_modal").val('');
       });
   }
+
+    $(".send_message").on("click",function(){
+        $(".form_message").submit();
+    });
 
 
   //    Cerrar descripción de la incidencia

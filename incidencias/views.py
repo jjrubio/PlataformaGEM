@@ -3,6 +3,7 @@ from django.template.context import RequestContext
 from django.utils import simplejson
 from models import *
 from historial.models import Estado, Reporte
+from mensajes.forms import
 from django.core import serializers
 
 
@@ -17,7 +18,6 @@ def mapa_incidencias(request):
 def get_dictionary_markers(data, num):
     info = Incidencia_info.objects.get(incidencia_id=data.id)
     dict_inc = {}
-    print info
     dict_inc['inc_code'] = num
     dict_inc['inc_usuario'] = info.incidencia.reportada_x_usuario.nick
     dict_inc['inc_categoria'] = info.incidencia.categoria.nombre
@@ -57,6 +57,14 @@ def marcadores_filtrados(request, vtype, vsubtype):
     json = simplejson.dumps(message)
     return HttpResponse(json, content_type='application/json')
 
+def enviar_mensaje(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/thanks/')
+    else:
+        form = NameForm()
+    return render(request, 'mapa_incidencias.html', {'form': form})
 
 def lista_categoria_estados (request):
     categorias_all                 = Categoria.objects.all()

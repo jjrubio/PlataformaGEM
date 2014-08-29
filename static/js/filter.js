@@ -89,14 +89,13 @@ $(document).ready( function() {
     //Boton
     $('body').on("click", ".btn", function (){
         var id_btn = $(this).attr('value');
-        console.log(id_btn);
         $('.modal-body #admin_comment').val(id_btn);
         $('#test_modal').modal('show');
     });
     $('body').on("click", ".btn-primary", function (){
         $('#test_modal').modal('hide');
     });
-    $('body').on("click", ".btn-default", function (){       
+    $('body').on("click", ".btn-default", function (){
         $('#test_modal').modal('hide');
     });
-});                                    
+});

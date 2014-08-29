@@ -59,18 +59,58 @@
                     <b class="pull-left">Estado: </b><span></span>
                     <i class="fa fa-slack pull-right"></i>
             </div>
-            <div class="row message-incidence">
-                    <!-- <form > -->
-                        <div class="text-center"><b>MENSAJE</b></div><br>
-                        <b>Titulo: </b><input type="text" name="titulo"><br><br>
-                        <b>Contenido: </b><input type="text" name="contenido">
-                    <!-- </form> -->
-            </div>
             <br>
 
-            <a href="ajax.html" data-target="#myModalSi" data-toggle="modal" class="btn btn-primary">Aceptar</a>
-            <a href="ajax.html" data-target="#myModalNo" data-toggle="modal" class="btn btn-primary">Rechazar</a>
+            <button class="btn" data-toggle="modal" data-target="#aceptada">Aceptar</button>
+            <button class="btn" data-toggle="modal" data-target="#rechazada">Rechazar</button>
 
+            <div class="modal fade" id="aceptada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mensaje de incidencia aceptada</h4>
+                  </div>
+                  <div class="modal-body">
+                    <b>Para: </b><span></span><br><br>
+                    <form  class="form_message" action="/mensaje/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" class="nick_modal" name="nick" value="">
+                        <b>Título: </b><input type="text" class="title_modal" name="title" size="70"><br><br>
+                        <b>Mensaje: </b><br>
+                        <textarea rows="6" cols="68" class="message_modal" name="message"></textarea><br><br>
+                        <b>Imagen: </b> <input class="image_modal" type="file" class="" name="image">
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn send_message">Enviar mensaje</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="rechazada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mensaje de incidencia rechazada</h4>
+                  </div>
+                  <div class="modal-body">
+                    <b>Para: </b><span></span><br><br>
+                    <form  class="form_message" action="/mensaje/" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" class="nick_modal" name="nick" value="">
+                        <b>Título: </b><input type="text" class="title_modal" name="title" size="70"><br><br>
+                        <b>Mensaje: </b><br>
+                        <textarea rows="6" cols="68" class="message_modal" name="message"></textarea><br><br>
+                        <b>Imagen: </b> <input class="image_modal" type="file" class="" name="image">
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn send_message">Enviar mensaje</button>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
     </div>

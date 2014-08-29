@@ -5838,10 +5838,14 @@ body .submenu-markers {
   margin-right: 5px;
 }
 body #incidence {
-  height: 75%;
+  height: 100%;
 }
 body #incidence .panel-heading {
   margin: 10px 0;
+}
+body #incidence .btn {
+  background-color: #ffcca1;
+  color: #000;
 }
 body .panel {
   background-color: #f04f4f;
