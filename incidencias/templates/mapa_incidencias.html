@@ -73,8 +73,9 @@
                   </div>
                   <div class="modal-body">
                     <b>Para: </b><span></span><br><br>
-                    <form  class="form_message" action="/mensaje/" method="post">
+                    <form  id="" class="form_message" action="" method="POST">
                         {% csrf_token %}
+                        <!-- {{ mensaje_form.as_p }} -->
                         <input type="hidden" class="nick_modal" name="nick" value="">
                         <b>Título: </b><input type="text" class="title_modal" name="title" size="70"><br><br>
                         <b>Mensaje: </b><br>
@@ -97,8 +98,9 @@
                   </div>
                   <div class="modal-body">
                     <b>Para: </b><span></span><br><br>
-                    <form  class="form_message" action="/mensaje/" method="post">
+                    <form  id="" class="form_message" action="" method="POST">
                         {% csrf_token %}
+                        <!-- {{ mensaje_form.as_p }} -->
                         <input type="hidden" class="nick_modal" name="nick" value="">
                         <b>Título: </b><input type="text" class="title_modal" name="title" size="70"><br><br>
                         <b>Mensaje: </b><br>

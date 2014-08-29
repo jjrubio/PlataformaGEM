@@ -1,9 +1,10 @@
-from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, render_to_response, HttpResponse, HttpResponseRedirect
 from django.template.context import RequestContext
 from django.utils import simplejson
 from models import *
 from historial.models import Estado, Reporte
 from mensajes.forms import MensajeForm
+from mensajes.models import Mensaje
 from django.core import serializers
 
 
@@ -58,13 +59,28 @@ def marcadores_filtrados(request, vtype, vsubtype):
     return HttpResponse(json, content_type='application/json')
 
 def enviar_mensaje(request):
+    context = RequestContext(request)
+    template = 'mapa_incidencias.html'
+    print 'as'
+    print request.POST
     if request.method == 'POST':
-        form = NameForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/thanks/')
+        print 'asdw'
+        mensaje_form = MensajeForm(data=request.POST)
+
+        if mensaje_form.is_valid():
+
+            titulo = mensaje_form.cleaned_data['titulo']
+            mensaje = Mensaje.objects.create(titulo=titulo, fecha='120112', cuerpo='first_name', imagen_path='last_name', destinatario_usuario=1)
+            mensaje.save()
+            print 'so'
+        else:
+            mensaje_form = MensajeForm()
+            print 'asw'
     else:
-        form = NameForm()
-    return render(request, 'mapa_incidencias.html', {'form': form})
+        mensaje_form = MensajeForm()
+        print 'wrrt'
+    return render_to_response(template, {'mensaje_form': mensaje_form}, context)
+
 
 def lista_categoria_estados (request):
     categorias_all                 = Categoria.objects.all()

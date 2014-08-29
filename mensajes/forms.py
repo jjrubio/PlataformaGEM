@@ -4,4 +4,4 @@ from models import Mensaje
 class MensajeForm(ModelForm):
     class Meta:
         model = Mensaje
-        fields = '__all__'
+        fields = fields = ('titulo', 'fecha', 'cuerpo', 'imagen_path','destinatario_usuario',)
