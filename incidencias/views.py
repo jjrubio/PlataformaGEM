@@ -112,17 +112,6 @@ def filtro_mapa(request, type):
     json = simplejson.dumps(message)
     return HttpResponse(json, content_type='application/json')
 
-
-def filtroTabSelec(request):
-    id_cat = request.GET['id_cat']
-
-    incidencias_by_categoria_by_estado = Incidencia.objects.filter(categoria=id_cat)
-    info_incidencia_categoria_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_categoria_by_estado)
-
-    data = serializers.serialize('json', info_incidencia_categoria_estado)
-    return HttpResponse(data, content_type='application/json')
-
-
 def filtroTabs(request):
     id_estados = int(request.GET['id_estados'])
     id_categoria = int(request.GET['id_select'])
