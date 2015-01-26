@@ -119,7 +119,7 @@ function RefreshMapControl(controlDiv, map) {
               break;
       }
 
-      var myLatlng = new google.maps.LatLng(coordenada.split(",")[0], coordenada.split(",")[1]);
+      var myLatlng = new google.maps.LatLng(coordenada.split(",")[1], coordenada.split(",")[0]);
       var marker = new google.maps.Marker({
           position: myLatlng,
           map: map,

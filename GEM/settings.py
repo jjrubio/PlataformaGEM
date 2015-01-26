@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'mensajes',
     'historial',
     'encuestas',
+    'estadisticas',
 )
 
 MIDDLEWARE_CLASSES = (
