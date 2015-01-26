@@ -122,13 +122,21 @@ def filtroTabSelec(request):
     data = serializers.serialize('json', info_incidencia_categoria_estado)
     return HttpResponse(data, content_type='application/json')
 
+
 def filtroTabs(request):
-    id_estados = request.GET['id_estados']
+    id_estados = int(request.GET['id_estados'])
+    id_categoria = int(request.GET['id_select'])
+
     result = []
     datos = {}
 
-    incidencias_by_estado = Incidencia.objects.filter(estado=id_estados)
-    info_incidencia_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_estado)
+    if id_categoria == 0:
+        incidencias_by_estado = Incidencia.objects.filter(estado=id_estados)
+        info_incidencia_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_estado).order_by('fecha')
+    else:
+        incidencias_by_estado = Incidencia.objects.filter(estado=id_estados).filter(categoria=id_categoria)
+        info_incidencia_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_estado).order_by('fecha')
+
 
     for i in info_incidencia_estado:
         datos['id_incidencia'] = i.incidencia.pk
@@ -139,7 +147,6 @@ def filtroTabs(request):
 
         result.append(datos)
 
-    #data = serializers.serialize('json',datos)
     data = serializers.serialize('json',info_incidencia_estado)
 
     return HttpResponse(data, content_type='application/json')
