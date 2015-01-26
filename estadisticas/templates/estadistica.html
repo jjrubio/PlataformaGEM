@@ -9,12 +9,34 @@
 {% endblock %}
 
 {% block content %}
-    <h1 id="titulo"> Estadísticas</h1>
-    <div class="tabbable container"
+    <h1 id="titulo1">Estadísticas</h1>
+    <div class="row">
+        <div class="col-lg-3">
+            <b id="categoria" class="pull-right">Categoría de las estadísticas:</b>
+        </div>
+        <div class="col-lg-6">
+            <select class="form-control">
+                {% if categorias_all %}
+                    <option value="0">Escoja una categoría</option>
+                    {% for cat in categorias_all %}
+                        <option value="{{ cat.id }}">{{ cat.nombre }}</option>
+                    {% endfor %}
+                {% else %}
+                    <option value="1">No hay categorías a enseñar</option>
+                {% endif %}
+            </select>
+        </div>
     </div>
+
+    <div id="grafico1" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto; margin-top: 2em;"></div>
+
+    <div id="grafico2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto; margin-top: 2em;"></div>
+
 {% endblock %}
 
 {% block extraScripts %}
+    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="{% static "js/estadistica.js" %}" type="text/javascript"></script>
     <script type="text/javascript">
         var MEDIA_URL = {{MEDIA_URL}};
     </script>
