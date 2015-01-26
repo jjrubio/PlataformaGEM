@@ -114,10 +114,10 @@ def filtro_mapa(request, type):
 
 
 def filtroTabSelec(request):
-    id_estado = request.GET['id_estado']
+    # id_estado = request.GET['id_estado']
     id_cat = request.GET['id_cat']
 
-    incidencias_by_categoria_by_estado = Incidencia.objects.filter(categoria=id_cat).filter(estado=id_estado)
+    incidencias_by_categoria_by_estado = Incidencia.objects.filter(categoria=id_cat)
     info_incidencia_categoria_estado = Incidencia_info.objects.filter(incidencia=incidencias_by_categoria_by_estado)
 
     data = serializers.serialize('json', info_incidencia_categoria_estado)

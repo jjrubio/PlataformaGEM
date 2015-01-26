@@ -10,10 +10,10 @@ $(document).ready( function() {
                             '<div class="tab-pane active" id="1">'+
                                 '<div class="panel panel-danger">'+
                                     '<div class"panel-heading">'+
-                                        '<p>'+'Incidencia Número: #'+item.fields.incidencia+'</p>'+
+                                        '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
                                     '</div>'+
                                     '<div class="panel-body">'+
-                                        '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
+                                        '<img id="thumbnail" style="width:100%" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
                                         '<div id="información">'+
                                             '<h4>'+'Informacion'+'</h4>'+
                                             '<p>'+'Fecha de la Incidencia: '+item.fields.fecha+'</p>'+
@@ -40,7 +40,7 @@ $(document).ready( function() {
                         '<div class="tab-pane active" id="1">'+
                             '<div class="panel panel-danger">'+
                                 '<div class"panel-heading">'+
-                                    '<p>'+'Incidencia Número: #'+item.fields.incidencia+'</p>'+
+                                    '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
                                 '</div>'+
                                 '<div class="panel-body">'+
                                     '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
@@ -61,7 +61,7 @@ $(document).ready( function() {
                         '<div class="tab-pane active" id="1">'+
                             '<div class="panel panel-danger">'+
                                 '<div class"panel-heading">'+
-                                    '<p>'+'Incidencia Número: #'+item.fields.incidencia+'</p>'+
+                                    '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
                                 '</div>'+
                                 '<div class="panel-body">'+
                                     '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
@@ -83,17 +83,38 @@ $(document).ready( function() {
     //Select
     $('select').change(function(){
         var id_cat = $(this).val();
-        var id_estado = $('#myTabs li.active').attr('id');
+        // var id_estado = $('#myTabs li.active').attr('id');
         $('#datos').children().remove();
-        $.getJSON('/filtro_tabs_selec/', {'id_estado': id_estado, 'id_cat': id_cat},
+        $.getJSON('/filtro_tabs_selec/', {'id_cat': id_cat},
         function(data){
             $.each(data, function(index, item){
-                if(id_estado < 3){
+                // if(id_estado < 3){
+                //     var div = '<div class="tab-content">'+
+                //             '<div class="tab-pane active" id="1">'+
+                //                 '<div class="panel panel-danger">'+
+                //                     '<div class"panel-heading">'+
+                //                         '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
+                //                     '</div>'+
+                //                     '<div class="panel-body">'+
+                //                         '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
+                //                         '<div id="informacion">'+
+                //                             '<h4>'+'Información'+'</h4>'+
+                //                             '<p>'+'Fecha de la Incidencia: '+item.fields.fecha+'</p>'+
+                //                             '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
+                //                         '</div>'+
+                //                     '</div>'+
+                //                     '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
+                //                     '<button type="button" value='+item.pk+' class="btn btn-info" >Siguiente Estado</button>'+
+                //                 '</div>'+
+                //             '</div>'+
+                //         '</div>';
+                //     $('#datos').append(div);
+                // }else{
                     var div = '<div class="tab-content">'+
                             '<div class="tab-pane active" id="1">'+
                                 '<div class="panel panel-danger">'+
                                     '<div class"panel-heading">'+
-                                        '<p>'+'Incidencia Número #'+item.fields.incidencia+'</p>'+
+                                        '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
                                     '</div>'+
                                     '<div class="panel-body">'+
                                         '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
@@ -104,32 +125,11 @@ $(document).ready( function() {
                                         '</div>'+
                                     '</div>'+
                                     '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
-                                    '<button type="button" value='+item.pk+' class="btn btn-info" >Siguiente Estado</button>'+
                                 '</div>'+
                             '</div>'+
                         '</div>';
                     $('#datos').append(div);
-                }else{
-                    var div = '<div class="tab-content">'+
-                            '<div class="tab-pane active" id="1">'+
-                                '<div class="panel panel-danger">'+
-                                    '<div class"panel-heading">'+
-                                        '<p>'+'Incidencia Número #'+item.fields.incidencia+'</p>'+
-                                    '</div>'+
-                                    '<div class="panel-body">'+
-                                        '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
-                                        '<div id="informacion">'+
-                                            '<h4>'+'Información'+'</h4>'+
-                                            '<p>'+'Fecha de la Incidencia: '+item.fields.fecha+'</p>'+
-                                            '<p>'+'Comentario del Usuario: '+item.fields.comentario+'</p>'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<a href="/historial/'+item.pk+'/"><button id="btn-historial" type="button" class="btn btn-info">Ver Historial</button></a>'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>';
-                    $('#datos').append(div);
-                }
+            //     }
             });
         });
     });
@@ -167,7 +167,7 @@ $(document).ready( function() {
                             '<div class="tab-pane active" id="1">'+
                                 '<div class="panel panel-danger">'+
                                     '<div class"panel-heading">'+
-                                        '<p>'+'Incidencia Número #'+item.fields.incidencia+'</p>'+
+                                        '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
                                     '</div>'+
                                     '<div class="panel-body">'+
                                         '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
@@ -188,7 +188,7 @@ $(document).ready( function() {
                             '<div class="tab-pane active" id="1">'+
                                 '<div class="panel panel-danger">'+
                                     '<div class"panel-heading">'+
-                                        '<p>'+'Incidencia Número #:'+item.fields.incidencia+'</p>'+
+                                        '<p><h4>'+'Incidencia Número: #'+item.fields.incidencia+'</h4></p>'+
                                     '</div>'+
                                     '<div class="panel-body">'+
                                         '<img id="thumbnail" src='+MEDIA_URL+item.fields.imagen_path+'/>'+
